@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractstaticmethod
 import requests
+import json
 
 class IRequestException(Exception):
     pass
@@ -27,10 +28,25 @@ class Get(IRequest):
     def as_json(self, request_content):
         return request_content.json()
 
+class Post(IRequest):
+
+    def __init__(self, data: dict, header: dict):
+        self._data = data
+        self._header = header
+
+    def request_method(self, url: str):
+        print("Post request")
+        return requests.post(url, headers=self._header, data=json.loads(self._data))
+
+    def as_json(self, request_content):
+        return request_content.json()
+
 class RequestFactory:
 
     @staticmethod
     def build_request(request_type: str, header: dict, params: dict, data: dict):
-        if (request_type == "Get"):
+        if (request_type == 0):
             return Get(header=header, params=params)
+        if (request_type == 1):
+            return Post(header=header, data=data)
         raise IRequestException("Invalid request type")
