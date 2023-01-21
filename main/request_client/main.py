@@ -10,10 +10,8 @@ class IRequest(metaclass=ABCMeta):
     def request_method():
         """ Interface Method """
 
+    @abstractstaticmethod
     def as_json():
-        """ Interface Method """
-    
-    def as_text():
         """ Interface Method """
 
 class Get(IRequest):
@@ -36,7 +34,3 @@ class RequestFactory:
         if (request_type == "Get"):
             return Get(header=header, params=params)
         raise IRequestException("Invalid request type")
-
-#req = RequestFactory.build_request("Get", header=None, params=None)
-#req_method = req.request_method("https://steamcommunity.com")
-#req.as_json(req_method)
