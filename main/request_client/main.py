@@ -15,6 +15,10 @@ class IRequest(metaclass=ABCMeta):
     def as_json():
         """ Interface Method """
 
+    @abstractstaticmethod
+    def as_content():
+        """ Interface Method """
+
 class Get(IRequest):
 
     def __init__(self, params: dict, header: dict):
@@ -28,6 +32,9 @@ class Get(IRequest):
     def as_json(self, request_content):
         return request_content.json()
 
+    def as_content(self, request_content):
+        return request_content.content
+
 class Post(IRequest):
 
     def __init__(self, data: dict, header: dict):
@@ -40,6 +47,9 @@ class Post(IRequest):
 
     def as_json(self, request_content):
         return request_content.json()
+
+    def as_content(self, request_content):
+        return request_content.content
 
 class RequestFactory:
 
