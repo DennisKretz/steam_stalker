@@ -5,13 +5,9 @@ class IUserInterfaceException(Exception):
     pass
 
 class IUserInterface(metaclass=ABCMeta):
-
+    
     @staticmethod
-    def frame():
-        """ Interface Method """
-
-    @staticmethod
-    def label():
+    def build():
         """ Interface Method """
 
     @staticmethod
@@ -24,7 +20,7 @@ class NewWindow(IUserInterface):
         self._relief = relief
         self._bd = bd
 
-    def frame(self):
+    def build(self):
         frame = tk.Frame(self._window, relief=self._relief, bd=self._bd)
         frame.grid()
         return self._window
@@ -36,7 +32,7 @@ class NewLabel(IUserInterface):
         self._column = column
         self._row = row
 
-    def label(self, text: str):
+    def build(self, text: str):
         return tk.Label(self._window, text=text).grid(column=self._column, row=self._row)
 
 class BuildUserInterface(IUserInterface):
