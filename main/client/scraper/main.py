@@ -18,6 +18,10 @@ class IScraper(metaclass=ABCMeta):
     def by_id():
         """ Interface Method """
 
+    @abstractstaticmethod
+    def text():
+        """ Interface Method """
+
 class Find(IScraper):
 
     def __init__(self, element: str):
@@ -27,10 +31,13 @@ class Find(IScraper):
         return BeautifulSoup(request_content, 'html.parser')
 
     def by_class(self, soup: BeautifulSoup):
-        return soup.find(_class=self._element)
+        return soup.find(class_=self._element)
 
     def by_id(self, soup: BeautifulSoup):
         return soup.find(id=self._element)
+
+    def text(self, soup_content: str):
+        return soup_content.get_text()
 
 class ScraperFactory:
     
