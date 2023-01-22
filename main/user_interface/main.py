@@ -35,7 +35,7 @@ class NewLabel(IUserInterface):
         self._window = window
 
     def label(self, text: str):
-        return tk.Button(self._window, text=text).grid(column=1, row=0)
+        return tk.Label(self._window, text=text).grid(column=1, row=0)
 
 class BuildUserInterface(IUserInterface):
 
