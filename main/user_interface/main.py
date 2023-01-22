@@ -31,11 +31,13 @@ class NewWindow(IUserInterface):
 
 class NewLabel(IUserInterface):
     
-    def __init__(self, window: tk): 
+    def __init__(self, window: tk, column: int, row: int): 
         self._window = window
+        self._column = column
+        self._row = row
 
     def label(self, text: str):
-        return tk.Label(self._window, text=text).grid(column=1, row=0)
+        return tk.Label(self._window, text=text).grid(column=self._column, row=self._row)
 
 class BuildUserInterface(IUserInterface):
 
@@ -54,9 +56,9 @@ class UserInterfaceFactory:
         raise IUserInterfaceException("Invalid data type")
 
     @staticmethod
-    def add_item(data_type: int, window: tk):
+    def add_item(data_type: int, window: tk, column: int, row: int):
         if (data_type == 0):
-            return NewLabel(window=window)
+            return NewLabel(window=window, column=column, row=row)
     
     @staticmethod
     def build_ui(build: bool, window: tk):
