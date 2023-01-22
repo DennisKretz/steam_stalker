@@ -5,13 +5,9 @@ class IUserInterfaceException(Exception):
     pass
 
 class IUserInterface(metaclass=ABCMeta):
-    
-    @staticmethod
-    def build():
-        """ Interface Method """
 
-    @staticmethod
-    def build_ui_loop():
+    @abstractstaticmethod
+    def build():
         """ Interface Method """
 
 class NewWindow(IUserInterface):
@@ -40,7 +36,7 @@ class BuildUserInterface(IUserInterface):
     def __init__(self, window: tk):
         self._window = window
 
-    def build_ui_loop(self):
+    def build(self):
         return self._window.mainloop()
 
 class UserInterfaceFactory:
